@@ -1,3 +1,4 @@
+const Cube = require("../models/Cube");
 const fs = require("fs/promises");
 const uniqid = require("uniqid");
 
@@ -14,7 +15,7 @@ async function init() {
       getAll,
       getById,
       create,
-      edit
+      edit,
     };
     next();
   };
@@ -54,14 +55,13 @@ async function getById(id) {
 }
 
 async function create(cube) {
-  const id = uniqid();
-  data[id] = cube;
-  await persist();
+  const record = new Cube(cube);
+  return record.save();
 }
 
 async function edit(id, cube) {
-  if(!data[id]){
-    throw new ReferenceError('No such id in database!')
+  if (!data[id]) {
+    throw new ReferenceError("No such id in database!");
   }
   data[id] = cube;
   await persist();
