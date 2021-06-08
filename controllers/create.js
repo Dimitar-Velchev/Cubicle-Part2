@@ -10,9 +10,16 @@ module.exports = {
       imageUrl: req.body.imageUrl,
       difficulty: Number(req.body.difficulty),
     };
-    
-    await req.storage.create(cube);
-
+    try {
+      await req.storage.create(cube);
+    } catch (err) {
+      if (err.name == "ValidationError") {
+        return res.render("create", {
+          title: "Create",
+          error: "All fields are required.Image URL must be a valid URL. ",
+        });
+      }
+    }
     res.redirect("/");
   },
 };
