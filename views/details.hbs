@@ -11,7 +11,16 @@
   <p><span>Difficulty level:</span> {{difficulty}}</p>
   <a class="btn" href="/">Back</a>
   <a class="btn" href="/edit/{{_id}}">Edit</a>
+  <a class="btn" href="/details/{{_id}}/attach">Attach Stickers</a>
 </div>
+<h2>Accessories</h2>
+            <div class="accessories">
+         {{#each accessories}}
+         {{>accessory}}
+         {{else}}
+                <h3 class="italic">This cube has no accessories yet...</h3>
+                {{/each}}
+            </div>
 <div class="details">
   <form action="/comments/{{_id}}/create" method="POST" >
 
@@ -25,4 +34,5 @@
   <span style="font-style: italic;">No comment yet.Be the first!</span>
   {{/each}}
 </div>
+
 {{/with}}
