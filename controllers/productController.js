@@ -81,4 +81,24 @@ router.post("/edit/:id", async (req, res) => {
     res.redirect("404");
   }
 });
+
+router.get("/attach/:id", async (req, res) => {
+  const cube = await req.storage.getById(req.params.id);
+  const accessories = await req.storage.getAllAccessories(
+    (cube.accessories || []).map((a) => a._id)
+  );
+  res.render("attach", {
+    title: "Attach Stickers",
+    cube,
+    accessories,
+  });
+});
+router.post("/attach/:id", async (req, res) => {
+  const cubeId = req.params.cubeId;
+  const stickerId = req.body.accessory;
+
+  await req.storage.attachSticker(cubeId, stickerId);
+  res.redirect(`/details/${req.params.cubeId}`);
+});
+
 module.exports = router;
