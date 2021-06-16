@@ -1,9 +1,9 @@
 const express = require("express");
 const expressConfig = require("./config/express");
-const databaseConfig = require('./config/database');
+const databaseConfig = require("./config/database");
 const routesConfig = require("./config/routes");
 
-const { init: storage } = require("./services/storage");
+const storage = require("./middlewares/storage");
 start();
 
 async function start() {
