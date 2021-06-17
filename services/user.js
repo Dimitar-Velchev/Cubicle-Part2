@@ -15,6 +15,11 @@ async function createUser({ username, password, repeatPassword }) {
   user.save();
 }
 
+async function getUserByUsername(username) {
+  return await User.findOne({ username: { $regex: username, $options: "i" } });
+}
+
 module.exports = {
   createUser,
+  getUserByUsername
 };
