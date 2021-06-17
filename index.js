@@ -10,8 +10,8 @@ async function start() {
   const port = 3000;
   const app = express();
 
-  expressConfig(app);
   await databaseConfig(app);
+  expressConfig(app);
   app.use(await storage());
   routesConfig(app);
 
